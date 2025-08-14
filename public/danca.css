@@ -1,0 +1,176 @@
+/* Hero Section */
+    .dance-hero {
+      height: 60vh;
+      min-height: 400px;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                  url('images/IMG-20230529-WA0009jpg.0.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .dance-hero-content {
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .dance-hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--gold);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .dance-hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 80px 0;
+      background-color: var(--dark-gray);
+    }
+
+    .content-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      position: relative;
+      text-align: center;
+      margin-bottom: 60px;
+      color: var(--gold);
+    }
+
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    .content-block {
+      margin-bottom: 60px;
+    }
+
+    .content-title {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: var(--gold);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .content-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .text-content {
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    .image-container {
+      margin: 40px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: var(--transition);
+    }
+
+    .image-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .image-container:hover img {
+      transform: scale(1.03);
+    }
+
+    .image-caption {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      font-size: 0.9rem;
+      color: var(--gold-light);
+      text-align: center;
+    }
+
+    .content-highlight {
+      background: rgba(212, 175, 55, 0.1);
+      border-left: 4px solid var(--gold);
+      padding: 25px;
+      margin: 40px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .content-highlight p {
+      margin: 0;
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .dance-hero-title {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dance-hero {
+        height: 50vh;
+      }
+      
+      .dance-hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .dance-hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .content-title {
+        font-size: 1.8rem;
+      }
+      
+      .nav-link.custom-link {
+        padding: 15px 10px !important;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .dance-hero-title {
+        font-size: 1.8rem;
+      }
+      
+      .content-section {
+        padding: 50px 0;
+      }
+    }

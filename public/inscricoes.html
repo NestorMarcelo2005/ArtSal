@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Art & Sal - Inscrições</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inscricoes.css">
+  </style>
+</head>
+<body>
+  <!-- Enhanced Gold Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand" href="artesal.html">
+        <img src="images/logo.png" alt="Art & Sal Logo">
+      </a>
+
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Items -->
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link custom-link" href="artesal.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link custom-link" href="sobre.html">Sobre</a></li>
+          
+          <!-- Enhanced Dropdown Áreas -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle custom-link" href="#" id="areasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Áreas
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="areasDropdown">
+              <li><a class="dropdown-item" href="artes.html">Artes</a></li>
+              <li><a class="dropdown-item" href="coro.html">Coro</a></li>
+              <li><a class="dropdown-item" href="danca.html">Dança</a></li>
+              <li><a class="dropdown-item" href="teatro.html">Teatro</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link custom-link" href="espetaculos.html">Espetáculos</a></li>
+          <li class="nav-item"><a class="nav-link custom-link" href="galeria.html">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link custom-link" href="noticias.html">Notícias</a></li>
+          <li class="nav-item"><a class="nav-link custom-link" href="inscricoes.html">Inscrições</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Registration Hero -->
+  <header class="registration-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Junte-se a Nós</h1>
+      <p class="hero-subtitle">Faça parte da família Art & Sal e descubra o artista dentro de si</p>
+    </div>
+  </header>
+
+  <!-- Registration Section -->
+  <section class="registration-section">
+    <div class="container">
+      <h2 class="section-title">Formulário de Inscrição</h2>
+      
+      <div class="registration-container">
+        <div class="registration-header">
+          <h2>Inscreva-se no Art & Sal</h2>
+        </div>
+        
+        <!-- Removed the 1-2-3-4 steps section -->
+        
+        <div class="form-container">
+          <form id="registrationForm">
+            <div class="form-row">
+              <div class="form-col">
+                <div class="form-group">
+                  <label class="form-label" for="firstName">Nome Completo</label>
+                  <input type="text" id="firstName" class="form-control" placeholder="Digite seu nome" required>
+                </div>
+              </div>
+              <div class="form-col">
+                <div class="form-group">
+                  <label class="form-label" for="birthDate">Data de Nascimento</label>
+                  <input type="date" id="birthDate" class="form-control" required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-col">
+                <div class="form-group">
+                  <label class="form-label" for="email">Email</label>
+                  <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
+                </div>
+              </div>
+              <div class="form-col">
+                <div class="form-group">
+                  <label class="form-label" for="phone">Telefone</label>
+                  <div class="phone-container">
+                    <div class="phone-input">
+                      <input type="tel" id="phone" class="form-control" placeholder="123 456 789" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Removed Morada field -->
+            
+            <div class="form-group">
+              <label class="area-label">Área(s) de Interesse</label>
+              <div class="area-options">
+                <div class="area-option">
+                  <input type="checkbox" id="artes" class="area-radio" name="areas" value="artes">
+                  <label for="artes" class="area-label-card">
+                    <div class="area-icon"><i class="fas fa-paint-brush"></i></div>
+                    <div class="area-name">Artes</div>
+                  </label>
+                </div>
+                
+                <div class="area-option">
+                  <input type="checkbox" id="coro" class="area-radio" name="areas" value="coro">
+                  <label for="coro" class="area-label-card">
+                    <div class="area-icon"><i class="fas fa-music"></i></div>
+                    <div class="area-name">Coro</div>
+                  </label>
+                </div>
+                
+                <div class="area-option">
+                  <input type="checkbox" id="danca" class="area-radio" name="areas" value="danca">
+                  <label for="danca" class="area-label-card">
+                    <div class="area-icon"><i class="fas fa-child"></i></div>
+                    <div class="area-name">Dança</div>
+                  </label>
+                </div>
+                
+                <div class="area-option">
+                  <input type="checkbox" id="teatro" class="area-radio" name="areas" value="teatro">
+                  <label for="teatro" class="area-label-card">
+                    <div class="area-icon"><i class="fas fa-theater-masks"></i></div>
+                    <div class="area-name">Teatro</div>
+                  </label>
+                </div>
+                
+                <!-- Added "Ainda não decidi" option with same height -->
+                <div class="area-option">
+                  <input type="checkbox" id="undecided" class="area-radio" name="areas" value="undecided">
+                  <label for="undecided" class="area-label-card">
+                    <div class="area-icon"><i class="fas fa-question-circle"></i></div>
+                    <div class="area-name">Ainda não decidi</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="experience">Experiência Anterior</label>
+              <textarea id="experience" class="form-control" rows="4" placeholder="Descreva sua experiência artística, se houver..."></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="motivation">Por que quer fazer parte do Art & Sal?</label>
+              <textarea id="motivation" class="form-control" rows="4" placeholder="Explique sua motivação..." required></textarea>
+            </div>
+            
+            <!-- Removed terms and newsletter checkboxes -->
+            
+            <button type="submit" class="btn-submit mt-4">Enviar Inscrição</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+   <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Perguntas Frequentes</h2>
+      
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">
+            Quem pode se inscrever no Art & Sal?
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>O Art & Sal é aberto a jovens entre 14 e 25 anos que tenham interesse em artes performativas. Não é necessário experiência prévia - valorizamos o entusiasmo e a vontade de aprender!</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            Quanto custa a inscrição?
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>A inscrição no Art & Sal tem uma taxa simbólica de manutenção de €30 por semestre. Oferecemos bolsas para casos de dificuldade económica - entre em contato para mais informações.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            Posso participar em mais de uma área?
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>Sim! Muitos dos nossos membros participam em duas ou mais áreas artísticas. Durante a inscrição, você pode selecionar todas as áreas de seu interesse e depois combinaremos um horário que funcione para você.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            Qual o horário das atividades?
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>As atividades principais acontecem às sextas-feiras das 18:30 às 20:30. Além disso, cada área tem ensaios específicos durante a semana. Após a inscrição, você receberá o calendário completo.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            Como funciona o processo de seleção?
+            <span class="faq-toggle">▼</span>
+          </div>
+          <div class="faq-answer">
+            <p>Após preencher o formulário, entraremos em contato para marcar uma entrevista informal. Não há audições - nosso objetivo é conhecer você e seus interesses para garantir uma boa integração no grupo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <a href="artesal.html">
+            <img src="images/logo.png" alt="Art & Sal Logo" class="footer-logo">
+          </a>
+          <p class="text-light">O Art & Sal é um grupo artístico que promove a expressão criativa através da dança, teatro, artes visuais e canto coral.</p>
+        </div>
+        
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h4 class="footer-title">Links Rápidos</h4>
+          <ul class="footer-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Áreas Artísticas</a></li>
+            <li><a href="#">Espetáculos</a></li>
+            <li><a href="#">Galeria</a></li>
+            <li><a href="#">Inscreva-se</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4">
+          <h4 class="footer-title">Contactos</h4>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> Salesianos do Funchal, Madeira</li>
+            <li><i class="fas fa-envelope"></i> info@artesal.pt</li>
+            <li><i class="fas fa-phone"></i> +351 291 123 456</li>
+            <li><i class="fas fa-clock"></i> Sextas: 18:30 - 20:30</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; Art & Sal 2025 – Todos os direitos reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts.js"></script>
+  
+</body>
+</html>

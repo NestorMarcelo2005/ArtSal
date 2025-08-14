@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Art & Sal - Galeria</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="galeria.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Enhanced Gold Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="artesal.html">
+        <img src="images/logo.png" alt="Art & Sal Logo">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link custom-link" href="artesal.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link custom-link" href="sobre.html">Sobre</a></li>
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle custom-link" href="#" id="areasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Áreas
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="areasDropdown">
+              <li><a class="dropdown-item" href="artes.html">Artes</a></li>
+              <li><a class="dropdown-item" href="coro.html">Coro</a></li>
+              <li><a class="dropdown-item" href="danca.html">Dança</a></li>
+              <li><a class="dropdown-item" href="teatro.html">Teatro</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link custom-link" href="espetaculos.html">Espetáculos</a></li>
+          <li class="nav-item"><a class="nav-link custom-link" href="galeria.html">Galeria</a></li>
+          <li class="nav-item"><a class="nav-link custom-link" href="noticias.html">Notícias</a></li>
+          <li class="nav-item"><a class="nav-link custom-link" href="inscricoes.html">Inscrições</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Gallery Hero -->
+  <header class="gallery-hero">
+    <div class="gallery-hero-content">
+      <h1 class="gallery-hero-title">Nossa Galeria</h1>
+      <p class="gallery-hero-subtitle">Memórias visuais das nossas produções artísticas</p>
+    </div>
+  </header>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="container">
+      <h2 class="section-title">Momentos Memoráveis</h2>
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">Todas</button>
+        <button class="filter-btn" data-filter="rise-up">Rise Up</button>
+        <button class="filter-btn" data-filter="filhos-do-sim">Filhos do Sim</button>
+        <button class="filter-btn" data-filter="jmj">JMJ</button>
+        <button class="filter-btn" data-filter="uma-gota-no-oceano">Uma Gota no Oceano</button>
+        <button class="filter-btn" data-filter="jesus-cristo-superstar">Jesus Cristo SuperStar</button>
+        <button class="filter-btn" data-filter="nas-asas-do-sonho">Nas Asas do Sonho</button>
+        <button class="filter-btn" data-filter="o-principe-e-a-lavadeira">O Príncipe e a Lavadeira</button>
+        <button class="filter-btn" data-filter="abertura-jogos-salesianos">Abertura Jogos Salesianos</button>
+      </div>
+      <!-- Gallery Grid -->
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="loader">
+          <div class="loader-spinner"></div>
+          <span>Carregando imagens da galeria...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <div class="lightbox-content">
+      <div class="lightbox-media-container">
+        <img src="" alt="" class="lightbox-image">
+        <iframe class="lightbox-video" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="lightbox-info">
+        <h3 class="lightbox-title"></h3>
+        <p class="lightbox-category"></p>
+      </div>
+    </div>
+    <div class="lightbox-nav">
+      <span class="lightbox-prev"><i class="fas fa-chevron-left"></i></span>
+      <span class="lightbox-next"><i class="fas fa-chevron-right"></i></span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <a href="artesal.html">
+            <img src="images/logo.png" alt="Art & Sal Logo" class="footer-logo">
+          </a>
+          <p class="text-light">O Art & Sal é um grupo artístico que promove a expressão criativa através da dança, teatro, artes visuais e canto coral.</p>
+        </div>
+        
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h4 class="footer-title">Links Rápidos</h4>
+          <ul class="footer-links">
+            <li><a href="artesal.html">Início</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="artes.html">Artes</a></li>
+            <li><a href="coro.html">Coro</a></li>
+            <li><a href="danca.html">Dança</a></li>
+            <li><a href="teatro.html">Teatro</a></li>
+            <li><a href="espetaculos.html">Espetáculos</a></li>
+            <li><a href="galeria.html">Galeria</a></li>
+            <li><a href="inscricoes.html">Inscreva-se</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4">
+          <h4 class="footer-title">Contactos</h4>
+          <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> Salesianos do Funchal, Madeira</li>
+            <li><i class="fas fa-envelope"></i> info@artesal.pt</li>
+            <li><i class="fas fa-phone"></i> +351 291 123 456</li>
+            <li><i class="fas fa-clock"></i> Sextas: 18:30 - 20:30</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; Art & Sal 2025 – Todos os direitos reservados</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="galeria.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
