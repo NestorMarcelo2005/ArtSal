@@ -557,16 +557,28 @@
   background: var(--gold);
   color: var(--black);
 }
-/* Add this to gallery item styles */
-.gallery-item-category {
+.gallery-item-overlay .gallery-item-category {
   font-size: 0.9rem;
   color: var(--gold-light);
-  margin: 0;
+  margin: 0 0 5px 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Add to lightbox styles */
 .lightbox-category {
   font-size: 1.1rem;
   color: var(--gold-light);
-  margin-top: 10px;
+  margin-top: 5px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.gallery-item-overlay {
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-item-overlay {
+  transform: translateY(0);
 }
