@@ -1,19 +1,19 @@
 // API endpoint
-const API_URL = '/api/gallery';
-
-// Global gallery data
-let galleryData = [];
-let currentGalleryItems = []; // Track currently displayed items
-const SESSION_TIMESTAMP = new Date().getTime();
-
+    const API_URL = '/api/gallery';
+    
+    // Global gallery data
+    let galleryData = [];
+    const SESSION_TIMESTAMP = new Date().getTime();
+    let currentFilteredData = [];
+    let activeFilter = 'all';
 // Update the preload function
 function preloadAdjacentImages(currentIndex) {
-  if (!currentGalleryItems || currentGalleryItems.length === 0) return;
+  if (!currentFilteredData || currentFilteredData.length === 0) return;
   
   for (let i = 1; i <= 5; i++) {
     // Preload next 5 images
-    const nextIndex = (currentIndex + i) % currentGalleryItems.length;
-    const nextMedia = currentGalleryItems[nextIndex];
+    const nextIndex = (currentIndex + i) % galleryData.length;
+    const nextMedia = galleryData[nextIndex];
     
     if (nextMedia && nextMedia.type === 'image' && !nextMedia.hqImageLoaded) {
       const hqUrl = `${nextMedia.hqSrc}?t=${SESSION_TIMESTAMP}`;
@@ -23,8 +23,8 @@ function preloadAdjacentImages(currentIndex) {
     }
 
     // Preload previous 5 images
-    const prevIndex = (currentIndex - i + currentGalleryItems.length) % currentGalleryItems.length;
-    const prevMedia = currentGalleryItems[prevIndex];
+    const prevIndex = (currentIndex - i + galleryData.length) % galleryData.length;
+    const prevMedia = galleryData[prevIndex];
     
     if (prevMedia && prevMedia.type === 'image' && !prevMedia.hqImageLoaded) {
       const hqUrl = `${prevMedia.hqSrc}?t=${SESSION_TIMESTAMP}`;
@@ -34,70 +34,53 @@ function preloadAdjacentImages(currentIndex) {
     }
   }
 }
-
-// Fetch gallery data from backend
-async function fetchGalleryData() {
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching gallery data:', error);
-    return [];
-  }
-}
-
-// Initialize gallery
-document.addEventListener('DOMContentLoaded', async () => {
-  const galleryGrid = document.getElementById('galleryGrid');
-  galleryGrid.innerHTML = `
-    <div class="loader">
-      <div class="loader-spinner"></div>
-      <span>Carregando imagens da galeria...</span>
-    </div>
-  `;
-
-  try {
-    galleryData = await fetchGalleryData();
+    // Fetch gallery data from backend
+    async function fetchGalleryData() {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching gallery data:', error);
+        return [];
+      }
+    }
     
-    // Initialize hqImageLoaded for all images
-    galleryData.forEach(item => {
-      if (item.type === 'image') {
-        item.hqImageLoaded = false;
+    // Initialize gallery
+    document.addEventListener('DOMContentLoaded', async () => {
+      const galleryGrid = document.getElementById('galleryGrid');
+      galleryGrid.innerHTML = `
+        <div class="loader">
+          <div class="loader-spinner"></div>
+          <span>Carregando imagens da galeria...</span>
+        </div>
+      `;
+    
+      try {
+        galleryData = await fetchGalleryData();
+        currentFilteredData = [...galleryData];
+        // Initialize hqImageLoaded for all images
+        galleryData.forEach(item => {
+          if (item.type === 'image') {
+            item.hqImageLoaded = false;
+          }
+        });
+        
+        renderGallery(currentFilteredData); 
+        initLightbox();
+        initFilters(); 
+      } catch (error) {
+        galleryGrid.innerHTML = `
+          <div class="error">
+            Ocorreu um erro ao carregar a galeria. Por favor, tente novamente mais tarde.
+          </div>
+        `;
+        console.error('Gallery initialization error:', error);
       }
     });
     
-    // Set initial current items
-    currentGalleryItems = [...galleryData];
-    
-    // Add filter button event listeners
-    document.querySelectorAll('.filter-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        // Update active button
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-          btn.classList.remove('active');
-        });
-        button.classList.add('active');
-        
-        // Filter gallery
-        filterGallery(button.dataset.filter);
-      });
-    });
-    
-    renderGallery(currentGalleryItems);
-    initLightbox();
-  } catch (error) {
-    galleryGrid.innerHTML = `
-      <div class="error">
-        Ocorreu um erro ao carregar a galeria. Por favor, tente novamente mais tarde.
-      </div>
-    `;
-    console.error('Gallery initialization error:', error);
-  }
-});
-
-// Render gallery items
-function renderGallery(items) {
+    // Render gallery items
+    function renderGallery(items) {
   const galleryGrid = document.getElementById('galleryGrid');
   galleryGrid.innerHTML = '';
 
@@ -123,9 +106,13 @@ function renderGallery(items) {
       ${videoIcon}
       <div class="gallery-item-overlay">
         <h3 class="gallery-item-title">${item.title}</h3>
-        <p class="gallery-item-category">${item.presentationName || ''}</p>
       </div>
     `;
+    
+    // Add click handler directly to this item
+    galleryItem.addEventListener('click', () => {
+      openLightbox(index);
+    });
     
     // Add image loading handler
     const img = galleryItem.querySelector('img');
@@ -135,51 +122,24 @@ function renderGallery(items) {
     
     galleryGrid.appendChild(galleryItem);
   });
-  
-  // Re-initialize lightbox after items are rendered
-  initLightbox();
 }
-
-// Initialize lightbox functionality
-function initLightbox() {
+    
+    // Initialize lightbox functionality
+    function initLightbox() {
   const lightbox = document.querySelector('.lightbox');
   const lightboxImage = document.querySelector('.lightbox-image');
   const lightboxVideo = document.querySelector('.lightbox-video');
   const lightboxTitle = document.querySelector('.lightbox-title');
-  const lightboxCategory = document.querySelector('.lightbox-category');
   const lightboxClose = document.querySelector('.lightbox-close');
   const lightboxPrev = document.querySelector('.lightbox-prev');
   const lightboxNext = document.querySelector('.lightbox-next');
   
   let currentIndex = 0;
-  
-  function stopVideo() {
-    if (lightboxVideo) {
-      // Remove src to stop iframe video playback
-      lightboxVideo.src = '';
-    }
-  }
 
-  // Get all gallery items
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  
-  // Add click event to each gallery item
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const index = parseInt(item.dataset.index);
-      openLightbox(index);
-    });
-  });
-  
   // Open lightbox with specific media
-  function openLightbox(index) {
+  window.openLightbox = function(index) { // Make it global
     currentIndex = index;
-    const media = currentGalleryItems[index];
-    
-    if (!media) return;
-    
-    stopVideo();
-    preloadAdjacentImages(index);
+    const media = currentFilteredData[index];
     
     // Add loading state
     lightbox.classList.add('lightbox-loading');
@@ -188,10 +148,6 @@ function initLightbox() {
     lightboxImage.style.display = 'none';
     lightboxVideo.style.display = 'none';
     lightboxImage.classList.remove('zoomed');
-    
-    // Set presentation info
-    lightboxTitle.textContent = media.title;
-    lightboxCategory.textContent = media.presentationName || '';
     
     if (media.type === 'video') {
       lightboxVideo.src = media.src;
@@ -223,85 +179,100 @@ function initLightbox() {
           console.error('Failed to load HQ image:', media.hqSrc);
           lightboxImage.classList.remove('loading');
           lightbox.classList.remove('lightbox-loading');
-          lightboxImage.src = media.thumbnail;
+          lightboxImage.src = media.thumbnail; 
         };
 
         highResImage.src = hqUrl;
       }
     }
 
-    lightboxImage.onerror = function() {
-      console.error('Failed to load HQ image:', this.src);
-      this.src = media.thumbnail; 
-    };
-    
+    lightboxTitle.textContent = media.title;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-  
-  // Close lightbox
-  function closeLightbox() {
-    stopVideo();
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  }
 
-  function prevMedia() {
-    stopVideo();
-    currentIndex = (currentIndex - 1 + currentGalleryItems.length) % currentGalleryItems.length;
-    openLightbox(currentIndex);
-  }
+      
+      // Close lightbox
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        lightboxVideo.src = ''; // Stop video playback
+      }
+      
+      // Navigate to previous media
+      function prevMedia() {
+        currentIndex = (currentIndex - 1 + currentFilteredData.length) % currentFilteredData.length;
+        openLightbox(currentIndex);
+      }
+      
+      function nextMedia() {
+        currentIndex = (currentIndex + 1) % currentFilteredData.length;
+        openLightbox(currentIndex);
+      }
+      
+      // Event listeners
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', prevMedia);
+      lightboxNext.addEventListener('click', nextMedia);
+      
+      // Close lightbox when clicking outside the content
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('active')) {
+          if (e.key === 'Escape') closeLightbox();
+          else if (e.key === 'ArrowLeft') prevMedia();
+          else if (e.key === 'ArrowRight') nextMedia();
+        }
+      });
+    }
+    function scaleImageToFit(imgElement) {
+      const maxWidth = window.innerWidth * 0.9;
+      const maxHeight = window.innerHeight * 0.9;
+      
+      const ratio = Math.min(
+        maxWidth / imgElement.naturalWidth,
+        maxHeight / imgElement.naturalHeight
+      );
+      
+      imgElement.style.width = `${imgElement.naturalWidth * ratio}px`;
+      imgElement.style.height = 'auto';
+    }
 
-  function nextMedia() {
-    stopVideo();
-    currentIndex = (currentIndex + 1) % currentGalleryItems.length;
-    openLightbox(currentIndex);
-  }
+// Initialize filters
+function initFilters() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
   
-  // Event listeners
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightboxPrev.addEventListener('click', prevMedia);
-  lightboxNext.addEventListener('click', nextMedia);
-  
-  // Close lightbox when clicking outside the content
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
-  });
-  
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (lightbox.classList.contains('active')) {
-      if (e.key === 'Escape') closeLightbox();
-      else if (e.key === 'ArrowLeft') prevMedia();
-      else if (e.key === 'ArrowRight') nextMedia();
-    }
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filter = this.dataset.filter;
+      applyFilter(filter);
+    });
   });
 }
 
-function filterGallery(presentation) {
-  console.log(`Filtering by: ${presentation}`);
-  const galleryGrid = document.getElementById('galleryGrid');
-  galleryGrid.innerHTML = `
-    <div class="loader">
-      <div class="loader-spinner"></div>
-      <span>Carregando...</span>
-    </div>
-  `;
+// Apply filter function
+function applyFilter(filter) {
+  activeFilter = filter;
   
-  // Filter items based on presentation
-  let filteredItems = [];
-  if (presentation === 'all') {
-    filteredItems = [...galleryData];
+  // Update button states
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filter);
+  });
+  
+  // Apply filter
+  if (filter === 'all') {
+    currentFilteredData = [...galleryData];
   } else {
-    filteredItems = galleryData.filter(item => {
-      const match = item.presentation === presentation;
-      console.log(`Item: ${item.title}, Presentation: ${item.presentation}, Match: ${match}`);
-      return match;
-    });
+    currentFilteredData = galleryData.filter(item => 
+      item.presentation === filter
+    );
   }
   
-  console.log(`Found ${filteredItems.length} items for ${presentation}`);
-  renderGallery(filteredItems);
+  renderGallery(currentFilteredData);
 }
