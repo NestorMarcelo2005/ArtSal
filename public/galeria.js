@@ -105,6 +105,7 @@ function preloadAdjacentImages(currentIndex) {
       <img src="${item.thumbnail}" alt="${item.title}" loading="lazy">
       ${videoIcon}
       <div class="gallery-item-overlay">
+        <div class="gallery-item-category">${item.presentationName}</div>
         <h3 class="gallery-item-title">${item.title}</h3>
       </div>
     `;
@@ -187,6 +188,7 @@ function preloadAdjacentImages(currentIndex) {
     }
 
     lightboxTitle.textContent = media.title;
+    document.querySelector('.lightbox-category').textContent = media.presentationName;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
